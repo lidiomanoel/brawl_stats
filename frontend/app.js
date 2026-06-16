@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const statHighest = document.getElementById("stat-highest");
     const statXp = document.getElementById("stat-xp");
     const statBrawlers = document.getElementById("stat-brawlers");
+    const playerAvatarContainer = document.getElementById("player-avatar-container");
     
     // Elementos da Taxa de Vitória
     const winrateRing = document.getElementById("winrate-ring");
@@ -96,6 +97,20 @@ document.addEventListener("DOMContentLoaded", () => {
         statHighest.textContent = currentData.player.highestTrophies.toLocaleString('pt-BR');
         statXp.textContent = currentData.player.expLevel;
         statBrawlers.textContent = currentData.player.brawlersUnlocked;
+        
+        // Atualiza a imagem do avatar de perfil
+        if (currentData.player.iconId) {
+            const img = document.createElement("img");
+            img.src = `https://cdn.brawlify.com/profile-icons/regular/${currentData.player.iconId}.png`;
+            img.alt = "Avatar";
+            img.onerror = () => {
+                playerAvatarContainer.innerHTML = `<span class="avatar-placeholder">👤</span>`;
+            };
+            playerAvatarContainer.innerHTML = "";
+            playerAvatarContainer.appendChild(img);
+        } else {
+            playerAvatarContainer.innerHTML = `<span class="avatar-placeholder">👤</span>`;
+        }
         
         // Atualiza os botões das abas com contagens
         tabAllBtn.textContent = `🏆 TODOS (${currentData.player.brawlersUnlocked})`;

@@ -185,7 +185,8 @@ class BrawlStarsClient:
                 "highestTrophies": player_data.get("highestTrophies"),
                 "expLevel": player_data.get("expLevel"),
                 "victories3v3": player_data.get("3vs3Victories"),
-                "brawlersUnlocked": len(player_data.get("brawlers", []))
+                "brawlersUnlocked": len(player_data.get("brawlers", [])),
+                "iconId": player_data.get("icon", {}).get("id")
             },
             "stats": {
                 "total": total_partidas,
