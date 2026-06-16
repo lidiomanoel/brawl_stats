@@ -55,15 +55,6 @@ Certifique-se de ter o **Python 3** instalado em sua máquina.
 
 ---
 
-## ☁️ Como Hospedar e Compartilhar
-
-Preparamos guias detalhados para te ajudar a colocar o projeto online de graça:
-- **Para hospedagem geral (Render, Railway, VPS, etc.)**: Leia o guia **[COMO_HOSPEDAR.md](COMO_HOSPEDAR.md)**.
-- **Para hospedagem rápida na Vercel (Serverless)**: Leia o guia **[COMO_VERCEL.md](COMO_VERCEL.md)**.
-- **Para aprender a enviar atualizações**: Leia o guia **[COMO_ATUALIZAR.md](COMO_ATUALIZAR.md)**.
-
----
-
 ## ⚠️ Isenção de Responsabilidade
 
 Este aplicativo não é afiliado, endossado, patrocinado ou aprovado especificamente pela Supercell. A Supercell não é responsável por seu funcionamento. Para obter mais informações, consulte a Política de Conteúdo para Fãs da Supercell.
