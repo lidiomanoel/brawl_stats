@@ -199,8 +199,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (item.winrate >= 65) wrClass = "win-high";
                     else if (item.winrate < 50) wrClass = "win-low";
                     
+                    const portraitUrl = item.id ? `https://cdn.brawlify.com/brawlers/portraits/${item.id}.png` : 'https://cdn.brawlify.com/brawlers/portraits/16000000.png';
                     brawlerDiv.innerHTML = `
-                        <div class="brawler-icon-box">🤠</div>
+                        <div class="brawler-icon-box">
+                            <img src="${portraitUrl}" alt="${item.brawler}" onerror="this.onerror=null; this.src='https://cdn.brawlify.com/brawlers/portraits/16000000.png';">
+                        </div>
                         <div class="brawler-info-col">
                             <div class="brawler-name-row">
                                 <span class="brawler-name">${item.brawler}</span>
@@ -235,8 +238,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (item.trophies >= 750) trophyClass = "win-high"; // Alta performance
                     else if (item.trophies >= 500) trophyClass = "win-mid"; // Média performance
                     
+                    const portraitUrl = item.id ? `https://cdn.brawlify.com/brawlers/portraits/${item.id}.png` : 'https://cdn.brawlify.com/brawlers/portraits/16000000.png';
                     brawlerDiv.innerHTML = `
-                        <div class="brawler-icon-box" style="background: var(--grad-gold); color: #000;">🌵</div>
+                        <div class="brawler-icon-box">
+                            <img src="${portraitUrl}" alt="${item.brawler}" onerror="this.onerror=null; this.src='https://cdn.brawlify.com/brawlers/portraits/16000000.png';">
+                        </div>
                         <div class="brawler-info-col">
                             <div class="brawler-name-row">
                                 <span class="brawler-name">${item.brawler}</span>

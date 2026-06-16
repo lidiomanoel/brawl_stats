@@ -69,16 +69,19 @@ class BrawlStarsClient:
 
             # Identificar brawler utilizado pelo jogador pesquisado
             brawler_usado = None
+            brawler_id = None
             if 'players' in detalhes:
                 for p in detalhes['players']:
                     if p.get('tag') == player_tag_normalized:
                         brawler_usado = p.get('brawler', {}).get('name', 'DESCONHECIDO')
+                        brawler_id = p.get('brawler', {}).get('id')
                         break
             elif 'teams' in detalhes:
                 for time in detalhes['teams']:
                     for p in time:
                         if p.get('tag') == player_tag_normalized:
                             brawler_usado = p.get('brawler', {}).get('name', 'DESCONHECIDO')
+                            brawler_id = p.get('brawler', {}).get('id')
                             break
 
             # Se não achou o jogador, pula (improvável, mas possível)
@@ -86,7 +89,7 @@ class BrawlStarsClient:
                 brawler_usado = "DESCONHECIDO"
 
             if brawler_usado not in brawler_stats:
-                brawler_stats[brawler_usado] = {"partidas": 0, "vitorias": 0}
+                brawler_stats[brawler_usado] = {"partidas": 0, "vitorias": 0, "id": brawler_id}
             brawler_stats[brawler_usado]["partidas"] += 1
 
             # Determinar vitória
@@ -145,7 +148,9 @@ class BrawlStarsClient:
         for brawler, dados in brawler_stats.items():
             wr = (dados["vitorias"] / dados["partidas"]) * 100 if dados["partidas"] > 0 else 0
             b_info = unlocked_lookup.get(brawler, {})
+            brawler_id = dados.get("id") or b_info.get("id")
             resumo_brawlers.append({
+                "id": brawler_id,
                 "brawler": brawler,
                 "partidas": dados["partidas"],
                 "vitorias": dados["vitorias"],
@@ -160,6 +165,7 @@ class BrawlStarsClient:
         brawlers_todos = []
         for b in player_data.get("brawlers", []):
             brawlers_todos.append({
+                "id": b.get("id"),
                 "brawler": b.get("name", "DESCONHECIDO"),
                 "power": b.get("power", 1),
                 "trophies": b.get("trophies", 0),
