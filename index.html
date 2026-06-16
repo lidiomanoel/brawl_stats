@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Stats - Dashboard de Performance</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-bg"></div>
+    <div class="glow-orb" id="orb-1"></div>
+    <div class="glow-orb" id="orb-2"></div>
+
+    <div class="container">
+        <!-- HEADER / BUSCA -->
+        <header class="main-header">
+            <div class="logo-area">
+                <span class="logo-icon">⚔️</span>
+                <h1>BRAWL <span>STATS</span></h1>
+            </div>
+            <p class="subtitle">Insira sua tag do Brawl Stars para ver sua performance detalhada em tempo real.</p>
+            
+            <form id="search-form" class="search-box">
+                <div class="input-wrapper">
+                    <span class="hash-symbol">#</span>
+                    <input type="text" id="tag-input" placeholder="RCG92GVJ" value="RCG92GVJ" autocomplete="off" required>
+                </div>
+                <button type="submit" id="search-btn">
+                    <span>BUSCAR</span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </form>
+        </header>
+
+        <!-- MENSAGENS E CARREGAMENTO -->
+        <div id="loader" class="loader-container hidden">
+            <div class="spinner"></div>
+            <p>Conectando ao Brawl Stars e analisando batalhas...</p>
+        </div>
+
+        <div id="error-card" class="error-container hidden">
+            <span class="error-icon">⚠️</span>
+            <h3>Ops! Ocorreu um erro</h3>
+            <p id="error-message">Não foi possível carregar as informações.</p>
+        </div>
+
+        <!-- DASHBOARD PRINCIPAL -->
+        <main id="dashboard" class="dashboard-grid hidden">
+            
+            <!-- CARD PERFIL -->
+            <section class="card profile-card" id="profile-section">
+                <div class="profile-header">
+                    <div class="avatar-container" id="player-avatar-container">
+                        <span class="avatar-placeholder">👤</span>
+                    </div>
+                    <div class="profile-title">
+                        <h2 id="player-name">LynxNut</h2>
+                        <span id="player-tag" class="tag-badge">#RCG92GVJ</span>
+                    </div>
+                </div>
+                <div class="profile-stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-emoji">🏆</span>
+                        <div class="stat-info">
+                            <span class="stat-label">Troféus Atuais</span>
+                            <span class="stat-value" id="stat-trophies">15,372</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-emoji">🥇</span>
+                        <div class="stat-info">
+                            <span class="stat-label">Recorde</span>
+                            <span class="stat-value" id="stat-highest">15,372</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-emoji">⭐</span>
+                        <div class="stat-info">
+                            <span class="stat-label">Nível de XP</span>
+                            <span class="stat-value" id="stat-xp">63</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-emoji">🌵</span>
+                        <div class="stat-info">
+                            <span class="stat-label">Brawlers</span>
+                            <span class="stat-value" id="stat-brawlers">39</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CARD TAXA DE VITÓRIA -->
+            <section class="card winrate-card" id="winrate-section">
+                <h3>DESEMPENHO GERAL (Últimas 25)</h3>
+                <div class="winrate-content">
+                    <div class="winrate-progress-wrapper">
+                        <svg class="progress-ring" width="160" height="160">
+                            <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="12" fill="transparent" r="68" cx="80" cy="80"/>
+                            <circle class="progress-ring__circle" id="winrate-ring" stroke="url(#winrate-gradient)" stroke-width="12" fill="transparent" r="68" cx="80" cy="80"/>
+                            <!-- Gradiente linear para a borda -->
+                            <defs>
+                                <linearGradient id="winrate-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#FFD700" />
+                                    <stop offset="100%" stop-color="#FF8C00" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="winrate-percentage">
+                            <span id="winrate-value">68.0%</span>
+                            <span class="winrate-sub">Win Rate</span>
+                        </div>
+                    </div>
+                    <div class="winrate-details">
+                        <div class="details-item">
+                            <span class="dot win"></span>
+                            <span>Vitórias: <strong id="stats-wins">17</strong></span>
+                        </div>
+                        <div class="details-item">
+                            <span class="dot lose"></span>
+                            <span>Derrotas/Outros: <strong id="stats-losses">8</strong></span>
+                        </div>
+                        <div class="feedback-badge" id="winrate-feedback">Excelente!</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO ESQUERDA: PERFORMANCE BRAWLERS -->
+            <section class="card brawlers-card">
+                <div class="card-header brawler-tabs-header">
+                    <button class="tab-btn active" id="tab-played">🎯 EFICIÊNCIA</button>
+                    <button class="tab-btn" id="tab-all">🏆 TROFÉUS</button>
+                </div>
+                <div class="brawler-list" id="brawler-list-container">
+                    <!-- Gerado Dinamicamente -->
+                </div>
+            </section>
+
+            <!-- SEÇÃO DIREITA: HISTÓRICO DE BATALHAS -->
+            <section class="card history-card">
+                <div class="card-header">
+                    <h3>📊 ÚLTIMOS COMBATES</h3>
+                </div>
+                <div class="history-list" id="history-list-container">
+                    <!-- Gerado Dinamicamente -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>Brawl Stats - Este aplicativo não é afiliado, endossado, patrocinado ou aprovado pela Supercell.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
