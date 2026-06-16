@@ -2,6 +2,11 @@ from http.server import BaseHTTPRequestHandler
 import urllib.parse
 import json
 import traceback
+import sys
+import os
+
+# Adiciona a raiz do projeto ao path para importar brawl_api no ambiente do Vercel
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Importa o cliente da API da raiz do projeto
 from brawl_api import BrawlStarsClient
