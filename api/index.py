@@ -21,7 +21,7 @@ class handler(BaseHTTPRequestHandler):
         path = parsed_url.path
         
         # Responde à rota de estatísticas
-        if path.startswith("/api"):
+        if path.startswith("/api/stats"):
             query_params = urllib.parse.parse_qs(parsed_url.query)
             tag = query_params.get("tag", [""])[0]
             

@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     async function fetchPlayerStats(tag) {
         showLoader();
         try {
-            const response = await fetch(`/api?tag=${encodeURIComponent(tag)}`);
+            const response = await fetch(`/api/stats?tag=${encodeURIComponent(tag)}`);
             const data = await response.json();
             
             if (!response.ok) {
