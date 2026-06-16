@@ -73,10 +73,19 @@ def run_server():
     if not os.path.exists(FRONTEND_DIR):
         os.makedirs(FRONTEND_DIR)
         
+    # Detecta e exibe o IP público de saída do servidor
+    try:
+        import requests
+        ip_info = requests.get('https://api.ipify.org?format=json', timeout=5).json()
+        print(f"🌍 Seu IP público de saída atual é: {ip_info.get('ip')}")
+        print(f"💡 Copie o IP acima e cadastre-o no painel de desenvolvedores do Brawl Stars!")
+    except Exception as e:
+        print(f"⚠️ Não foi possível obter o IP de saída: {e}")
+        
     socketserver.TCPServer.allow_reuse_address = True
     
     with socketserver.TCPServer(("", PORT), BrawlStarsServerHandler) as httpd:
-        print(f"🚀 Servidor rodando em http://localhost:{PORT}")
+        print(f"🚀 Servidor rodando na porta: {PORT}")
         print(f"📁 Servindo arquivos de: {FRONTEND_DIR}")
         try:
             httpd.serve_forever()
