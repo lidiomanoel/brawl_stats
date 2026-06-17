@@ -51,7 +51,7 @@ Certifique-se de ter o **Python 3** instalado em sua máquina.
    ```
 
 4. **Acesse no seu navegador**:
-   Abra [http://localhost:8000](http://localhost:8000)
+   Abra https://status-brawl.onrender.com/
 
 ---
 
